@@ -6,10 +6,13 @@ __pycache__/
 # Ignore virtual environment
 venv/
 env/
+*.venv/
 
 # Ignore local configuration files
 *.local
 *.env
+.env/
+.env[.local]
 
 # Ignore distribution/build files
 build/
@@ -22,10 +25,15 @@ dist/
 .vscode/
 *.swp
 *.swo
+*.sublime-workspace
+*.sublime-project
 
 # Ignore cache and log files
 *.log
 *.cache
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Ignore system files
 .DS_Store
@@ -35,5 +43,4 @@ Thumbs.db
 run.spec
 
 # Ignore local data files
-data/
 data/
