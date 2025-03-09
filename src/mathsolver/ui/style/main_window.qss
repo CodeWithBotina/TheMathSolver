@@ -1,0 +1,83 @@
+/* General style */
+QMainWindow {
+    background-color: #1e1e2e;
+    color: #ffffff;
+}
+
+/* Title */
+QLabel#titleLabel {
+    font-size: 30px;
+    font-weight: bold;
+    color: #bb86fc;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #2d2d3a;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #3c3c4e;
+}
+
+/* Text input */
+QLineEdit {
+    background-color: #2d2d3a;
+    color: white;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 14px;
+}
+
+/* Menu */
+QMenuBar {
+    background-color: #2d2d3a;
+    color: white;
+}
+
+QMenuBar::item:selected {
+    background-color: #3c3c4e;
+}
+
+/* Style for QMessageBox */
+QMessageBox {
+    background-color: #1e1e2e;
+    color: white;
+    border-radius: 10px;
+}
+
+QMessageBox QLabel {
+    font-size: 16px;
+    color: #bb86fc;
+}
+
+QMessageBox QPushButton {
+    background-color: #2d2d3a;
+    color: white;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 14px;
+}
+
+QMessageBox QPushButton:hover {
+    background-color: #3c3c4e;
+}
+
+QMenu {
+    background-color: #444;
+    color: white;
+    border-radius: 5px;
+}
+
+QMenu::item {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+QMenu::item:selected {
+    background-color: #666;
+}
