@@ -62,17 +62,28 @@ MathSolver/
 │       │   ├── main_window.ui
 │       │   └── style/
 │       │       └── main_window.qss
+│       │
+│       ├── assets /
+│       │    ├── icons /
+│       │
+│       ├── modules /
+│       │    ├── sets.py
+│       │    ├── induction.py
+│       │    ├── relations.py
+│       │    └── functions.py
+│       │
 │       ├── data/            # Data files
 │       │   └── about.json
+│       │
 │       └── logic/           # Application logic
 │           ├── ui_loader.py
 │           ├── chat_handler.py
 │           └── about_handler.py
-├── run.py                   # Entry point for the application
-├── run.spec                 # PyInstaller configuration file
+│
 ├── README.md                # Project overview
 ├── INSTALL.md               # Installation instructions
 ├── requirements.txt         # Python dependencies
+├── run.py                   # main file
 └── .gitignore               # Specifies files to ignore in Git
 ```
 
@@ -105,5 +116,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions or feedback, please contact:
 - **Diego Alejandro Botina**
-- Email: your.email@example.com
-- GitHub: [CodeWithBotina](https://github.com/codewithbotina)
+- Email: codewithbotina.team@outlook.com
+- GitHub: [CodeWithBotina](https://github.com/CodeWithbBtina)
