@@ -20,8 +20,8 @@ Before proceeding, ensure you have the following installed:
 Clone the MathSolver repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/MathSolver.git
-cd MathSolver
+git clone https://github.com/CodeWithBotina/TheMathSolver.git
+cd TheMathSolver
 ```
 
 ---
