@@ -1,11 +1,17 @@
 import os
 import sys
+import tempfile
+import matplotlib.pyplot as plt
 from functools import partial
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenu, QMessageBox, QTextEdit, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QLineEdit
-from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QPushButton, QMenu, QTextEdit, QLabel,
+    QVBoxLayout, QHBoxLayout, QWidget, QLineEdit, QMessageBox
+)
+from PyQt6.QtGui import QAction, QPixmap
 from mathsolver.logic.ui_loader import load_ui_file
 from mathsolver.logic.chat_handler import start_chat
 from mathsolver.logic.about_handler import show_about
+from mathsolver.modules.induction import InductionHandler  # Import the induction module
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -16,16 +22,14 @@ class MainWindow(QMainWindow):
         self.chat_display.setReadOnly(True)
         self.chat_display.setStyleSheet("background-color: #2d2d2d; color: white;")
 
-        # Get the absolute path to the assets directory
+        # Get base directory
         if getattr(sys, 'frozen', False):
-            # If the application is packaged, use the temporary path from PyInstaller
             base_dir = sys._MEIPASS
         else:
-            # If not packaged, use the normal path
             base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+        
         assets_dir = os.path.join(base_dir, "mathsolver")
-
+        
         # Load the UI
         ui_path = os.path.join(assets_dir, "ui", "main_window.ui")
         if not os.path.exists(ui_path):
@@ -42,7 +46,8 @@ class MainWindow(QMainWindow):
         self.formula_input = self.findChild(QLineEdit, "formulaInput")
         self.chat_display = QTextEdit(self)
         self.chat_display.setReadOnly(True)
-
+        self.image_label = QLabel(self)  # Label to display generated images
+        
         # Dropdown menu
         self.menu = QMenu(self)
         options = ["Sets", "Functions", "Relations", "Induction"]
@@ -51,15 +56,15 @@ class MainWindow(QMainWindow):
         for option in options:
             action = self.menu.addAction(option)
             action.triggered.connect(partial(self.set_operation, option))
-
+        
         self.button.setMenu(self.menu)
 
         # Set up layout
         self.setup_layout()
-
+        
         # Load styles
         self.load_styles()
-
+        
         # Connect events
         self.setup_events()
 
@@ -73,7 +78,8 @@ class MainWindow(QMainWindow):
         # Add widgets to the layout
         self.layout.addWidget(self.title_label)
         self.layout.addWidget(self.button)
-        self.layout.addWidget(self.chat_display)  # Ensure chat_display is added
+        self.layout.addWidget(self.chat_display)
+        self.layout.addWidget(self.image_label)  # Add label for displaying images
 
         # Input layout
         input_layout = QHBoxLayout()
@@ -84,10 +90,8 @@ class MainWindow(QMainWindow):
     def load_styles(self):
         """Load styles from an external file."""
         if getattr(sys, 'frozen', False):
-            # If the application is packaged, use the temporary path from PyInstaller
             base_dir = sys._MEIPASS
         else:
-            # If not packaged, use the normal path
             base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
         style_path = os.path.join(base_dir, "mathsolver", "ui", "style", "main_window.qss")
@@ -99,7 +103,7 @@ class MainWindow(QMainWindow):
 
     def setup_events(self):
         """Set up interface events."""
-        self.send_button.clicked.connect(lambda: start_chat(self))
+        self.send_button.clicked.connect(lambda: self.process_formula())
 
         about_action = self.findChild(QAction, "actionAbout")
         if about_action:
@@ -109,3 +113,49 @@ class MainWindow(QMainWindow):
         """Store the selected operation and update the button."""
         self.selected_operation = text
         self.button.setText(text)
+
+    def process_formula(self):
+        """Process the formula based on the selected operation."""
+        formula = self.formula_input.text().strip()
+        if not formula:
+            QMessageBox.warning(self, "Error", "Please enter a formula.")
+            return
+
+        if not self.selected_operation:
+            QMessageBox.warning(self, "Error", "Please select an operation type.")
+            return
+
+        # User message (aligned to the right)
+        user_message = f"""
+        <div class="user-message">
+            <b>You ({self.selected_operation}):</b> {formula}
+        </div>
+        """
+        self.chat_display.append(user_message)
+
+        # Handle induction problems
+        if self.selected_operation == "Induction":
+            try:
+                induction_handler = InductionHandler(formula)
+                solution = induction_handler.solve_induction()
+                app_response = f"""
+                <div class="system-message">
+                    {solution}
+                </div>
+                """
+            except Exception as e:
+                app_response = f"""
+                <div class="system-message">
+                    <b>MathSolver:</b> Error processing the formula: {e}
+                </div>
+                """
+        else:
+            app_response = f"""
+            <div class="system-message">
+                <b>MathSolver:</b> Operation not supported yet.
+            </div>
+            """
+
+        # Append the response to the chat
+        self.chat_display.append(app_response)
+        self.formula_input.clear()
