@@ -1,21 +1,14 @@
-# mathsolver/modules/induction.py
-
 from sympy import symbols, Sum, simplify, Eq
-from mathsolver.logic.message_formats import SYSTEM_MESSAGE_TEMPLATE  # Import the template
 
 class InductionHandler:
     def __init__(self, formula_text):
-        """
-        Initializes the induction handler with the formula in text format.
-        """
+        """Initialize the induction handler with the formula in text format."""
         self.formula_text = formula_text
         self.n = symbols('n')  # Symbolic variable for induction
         self.i = symbols('i')  # Summation variable
 
     def parse_formula(self):
-        """
-        Converts the formula text into a SymPy symbolic expression.
-        """
+        """Convert the formula text into a SymPy symbolic expression."""
         try:
             # Example: If the user enters "Sum(i, (i, 1, n))", convert it to a SymPy expression
             expr = eval(self.formula_text, {'Sum': Sum, 'i': self.i, 'n': self.n})
@@ -24,9 +17,7 @@ class InductionHandler:
             raise ValueError(f"Error parsing the formula: {e}")
 
     def format_expression(self, expr):
-        """
-        Formats a SymPy symbolic expression into a readable string.
-        """
+        """Format a SymPy symbolic expression into a readable string."""
         if isinstance(expr, Sum):
             # Format summations
             lower = expr.limits[0][1]
@@ -43,9 +34,7 @@ class InductionHandler:
             return str(expr)
 
     def solve_induction(self):
-        """
-        Solves the induction problem step by step.
-        """
+        """Solve the induction problem step by step."""
         try:
             # Convert the formula to a symbolic expression
             expr = self.parse_formula()
@@ -81,7 +70,6 @@ class InductionHandler:
             The formula holds for all natural numbers n ≥ 1 by mathematical induction.
             """
 
-            return SYSTEM_MESSAGE_TEMPLATE.format(solution=solution)
-
+            return solution
         except Exception as e:
             raise ValueError(f"Error solving the induction: {e}")

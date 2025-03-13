@@ -116,3 +116,36 @@ QTextEdit div.system-message {
     float: left;
     clear: both;
 }
+
+/* Delete button */
+QPushButton#deleteButton {
+    background-color: #ff4444;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+QPushButton#deleteButton:hover {
+    background-color: #cc0000;
+}
+
+/* Chat selector */
+QComboBox {
+    background-color: #2d2d3a;
+    color: white;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 14px;
+}
+
+QComboBox::drop-down {
+    border: none;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2d2d3a;
+    color: white;
+    selection-background-color: #3c3c4e;
+    border-radius: 5px;
+}

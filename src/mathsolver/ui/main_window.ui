@@ -23,6 +23,23 @@
       </property>
      </widget>
     </item>
+    <!-- Agregar QComboBox para seleccionar chats -->
+    <item>
+     <widget class="QComboBox" name="chatSelector">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="deleteButton">
+      <property name="text">
+        <string>Delete Chat</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QLineEdit" name="formulaInput">
       <property name="placeholderText">

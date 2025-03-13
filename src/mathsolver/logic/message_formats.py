@@ -1,5 +1,3 @@
-# mathsolver/logic/message_formats.py
-
 # Template for user messages
 USER_MESSAGE_TEMPLATE = """
 <div class="user-message">
@@ -10,7 +8,6 @@ USER_MESSAGE_TEMPLATE = """
 # Template for system messages (step-by-step solution)
 SYSTEM_MESSAGE_TEMPLATE = """
 <div class="system-message">
-    <b>MathSolver:</b> Here's the step-by-step solution:<br><br>
     {solution}
 </div>
 """

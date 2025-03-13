@@ -44,3 +44,4 @@ run.spec
 
 # Ignore local data files
 data/
+.db

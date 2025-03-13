@@ -4,7 +4,7 @@ import json
 from PyQt6.QtWidgets import QMessageBox
 
 def show_about(window):
-    """Displays the 'About' window with information from a JSON file."""
+    """Display the 'About' window with information from a JSON file."""
     # Determine the base directory based on whether the app is packaged or not
     if getattr(sys, 'frozen', False):
         # If the application is packaged, use the temporary path from PyInstaller
