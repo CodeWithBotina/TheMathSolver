@@ -1,16 +1,28 @@
 import sqlite3
 from datetime import datetime
 import os
+import sys
 
-# Obtener el directorio base del proyecto
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def get_project_root():
+    """Get the absolute path to the project root directory."""
+    if getattr(sys, 'frozen', False):
+        # If the script is packaged (e.g., by PyInstaller), use the executable's directory
+        return os.path.dirname(sys.executable)
+    # Otherwise, use the directory of this script
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Ruta completa a la base de datos
-DATABASE_PATH = os.path.join(BASE_DIR, 'data', 'database.db')
+def get_data_dir():
+    """Get the path to the .data directory in the project root."""
+    project_root = get_project_root()
+    data_dir = os.path.join(project_root, ".data")
+    os.makedirs(data_dir, exist_ok=True)  # Create the .data directory if it doesn't exist
+    return data_dir
+
+# Full path to the database in the .data folder
+DATABASE_PATH = os.path.join(get_data_dir(), "chat_history.db")
 
 def initialize_database():
     """Initialize the database and create the necessary tables if they don't exist."""
-    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)  # Create the directory if it doesn't exist
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 

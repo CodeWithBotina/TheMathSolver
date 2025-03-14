@@ -5,7 +5,6 @@ from PyQt6.QtWidgets import QMessageBox
 
 def show_about(window):
     """Display the 'About' window with information from a JSON file."""
-    # Determine the base directory based on whether the app is packaged or not
     if getattr(sys, 'frozen', False):
         # If the application is packaged, use the temporary path from PyInstaller
         base_dir = sys._MEIPASS
@@ -14,7 +13,11 @@ def show_about(window):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     # Construct the path to the about.json file
-    about_path = os.path.join(base_dir, "data", "about.json")
+    about_path = os.path.join(base_dir, "about", "about.json")
+    
+    # Debug: Print the resolved path
+    print(f"Base directory: {base_dir}")
+    print(f"About path: {about_path}")
 
     # Check if the file exists
     if not os.path.exists(about_path):

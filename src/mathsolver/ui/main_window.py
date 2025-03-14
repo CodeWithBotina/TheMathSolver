@@ -20,23 +20,26 @@ class MainWindow(QMainWindow):
         self.chat_handler = ChatHandler()
         self.formula_handler = FormulaHandler()
 
-        # Get UI elements
-        self.chat_display = QTextEdit(self)
-        self.chat_display.setReadOnly(True)
-        self.chat_display.setStyleSheet("background-color: #2d2d2d; color: white;")
-
         # Get base directory
         if getattr(sys, 'frozen', False):
+            # If the application is packaged, use sys._MEIPASS
             base_dir = sys._MEIPASS
         else:
-            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            # If not packaged, use the normal path
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+        # Construct the path to the UI file
+        ui_path = os.path.join(base_dir, "ui", "main_window.ui")
         
-        assets_dir = os.path.join(base_dir, "mathsolver")
-        
-        # Load the UI
-        ui_path = os.path.join(assets_dir, "ui", "main_window.ui")
+        # Debug: Print the resolved path
+        print(f"Base directory: {base_dir}")
+        print(f"UI path: {ui_path}")
+
+        # Check if the UI file exists
         if not os.path.exists(ui_path):
             raise FileNotFoundError(f"UI file not found: {ui_path}")
+
+        # Load the UI
         load_ui_file(self, ui_path)
 
         # Adjust size
