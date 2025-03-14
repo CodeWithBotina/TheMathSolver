@@ -8,10 +8,10 @@ def load_styles(window):
         base_dir = sys._MEIPASS
     else:
         # If not packaged, use the normal path
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
     # Construct the path to the stylesheet
-    style_path = os.path.join(base_dir, "ui", "style", "main_window.qss")
+    style_path = os.path.join(base_dir, "mathsolver", "ui", "style", "main_window.qss")
     
     # Debug: Print the resolved path
     print(f"Base directory: {base_dir}")

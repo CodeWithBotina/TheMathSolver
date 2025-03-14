@@ -5,7 +5,7 @@ a = Analysis(
     ['src/mathsolver/main.py'],
     pathex=[],
     binaries=[],
-    datas=[('src/mathsolver/ui/main_window.ui', 'ui'), ('src/mathsolver/ui/style/main_window.qss', 'ui/style'), ('src/mathsolver/about/about.json', 'about')],
+    datas=[('src/mathsolver/ui/main_window.ui', 'mathsolver/ui'), ('src/mathsolver/ui/style/main_window.qss', 'mathsolver/ui/style'), ('src/mathsolver/about/about.json', 'mathsolver/about'), ('src/mathsolver/assets/icons/icon.ico', 'mathsolver/assets/icons'), ('src/mathsolver/assets/icons/icon.icns', 'mathsolver/assets/icons'), ('src/mathsolver/assets/icons/icon.png', 'mathsolver/assets/icons')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets/icons/icon.ico'],
+    icon=['src/mathsolver/assets/icons/icon.ico'],
 )

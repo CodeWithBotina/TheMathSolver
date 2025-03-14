@@ -11,6 +11,7 @@ from mathsolver.logic.about_handler import show_about
 from mathsolver.logic.chat_handler import ChatHandler
 from mathsolver.logic.formula_handler import FormulaHandler
 from mathsolver.ui.style.styles import load_styles
+from mathsolver.ui.style.icon import get_window_icon  # Import the icon function
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -22,14 +23,14 @@ class MainWindow(QMainWindow):
 
         # Get base directory
         if getattr(sys, 'frozen', False):
-            # If the application is packaged, use sys._MEIPASS
+            # If the application is packaged, use the temporary path from PyInstaller
             base_dir = sys._MEIPASS
         else:
             # If not packaged, use the normal path
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
         # Construct the path to the UI file
-        ui_path = os.path.join(base_dir, "ui", "main_window.ui")
+        ui_path = os.path.join(base_dir, "mathsolver", "ui", "main_window.ui")
         
         # Debug: Print the resolved path
         print(f"Base directory: {base_dir}")
@@ -41,6 +42,12 @@ class MainWindow(QMainWindow):
 
         # Load the UI
         load_ui_file(self, ui_path)
+
+        # Set the window icon
+        try:
+            self.setWindowIcon(get_window_icon())
+        except FileNotFoundError as e:
+            print(e)  # Log the error if the icon file is not found
 
         # Adjust size
         self.resize(800, 600)
